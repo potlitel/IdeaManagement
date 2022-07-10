@@ -1,0 +1,168 @@
+{% extends "MasterPage.html" %}
+{% load inbox %}
+
+{% load comments richcomments %}
+
+{% load likes_inclusion_tags %}
+{% load staticfiles %}
+{% load avatar_tags %}
+
+{% block content %}
+
+<style type="text/css">
+	#searchid
+	{
+		width:600px;
+		height:50px;
+		padding:10px;
+		font-size:14px;
+	}
+	#result
+	{
+		position:absolute;
+		width:600px;
+		padding:10px;
+		display:none;
+		margin-top:-1px;
+		border-top:0px;
+		overflow:hidden;
+		border:1px #CCC solid;
+		background-color: white;
+	}
+	.show
+	{
+		padding:10px; 
+		border-bottom:1px #999 dashed;
+		font-size:15px; 
+		height:50px;
+	}
+	.show:hover
+	{
+		background:#4c66a4;
+		color:#FFF;
+		cursor:pointer;
+	}
+</style>
+
+    <h1>Dear {{ user.username }}, below the list of idea</h1>
+    {% if user.is_authenticated %}
+        <div>
+            <a href="{% url 'Idea_create' %}" class="fm-create btn btn-primary btn-large" data-fm-head="Creating Idea" data-fm-callback="reload">Create idea</a>
+        </div></br>
+    {% endif %}
+
+    <div id="right" class="cd-panel from-right">
+        <header class="cd-panel-header">
+            <h1 id="title"></h1>
+            <a href="#1" class="cd-panel-close">Close</a>
+        </header>
+
+        <div class="cd-panel-container">
+            <div class="cd-panel-content">
+                <p style='text-align:justify' id="text">
+                </p>
+            </div> <!-- cd-panel-content -->
+        </div> <!-- cd-panel-container -->
+    </div> <!-- cd-panel -->
+   
+
+   <div class="content">
+	<input type="text" class="search form-control" id="searchid" placeholder="Start typing here any idea you are looking for" />
+	<div id="result">
+	</div>
+	</div>
+   
+    <!-- <label for="search">Search any idea you are looking for {{ object_list.count }}</label>
+    <input id="search" class="form-control" name="search" placeholder="Start typing here" type="text" data-list=".highlight_list" autocomplete="off" data-nodata="No results found"> -->
+    
+	<!--Horizontal Tab-->
+    <!-- <div id="horizontalTab">
+        <ul>
+            <li><a href="#tab-1">Responsive Tab-1</a></li>
+            <li><a href="#tab-2">Responsive Tab-2</a></li>
+            <li><a href="#tab-3">Responsive Tab-3</a></li>
+        </ul>
+
+        <div id="tab-1">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce eu scelerisque eros. Fusce ante orci, hendrerit sit amet metus sit amet, venenatis sodales felis. Morbi vel mi in leo dignissim convallis in a neque. Suspendisse sollicitudin nibh non dapibus condimentum. Etiam sit amet arcu ultricies, porttitor justo eget, scelerisque urna. Praesent non ligula nec ligula euismod condimentum eget sed augue. Ut feugiat, turpis id sollicitudin vestibulum, tellus massa adipiscing nisl, quis cursus nisl arcu vel ipsum.</p>
+        </div>
+        <div id="tab-2">
+            <p>Quisque sodales sodales lacus pharetra bibendum. Etiam commodo non velit ac rhoncus. Mauris euismod purus sem, ac adipiscing quam laoreet et. Praesent vulputate ornare sem vel scelerisque. Ut dictum augue non erat lacinia, sed lobortis elit gravida. Proin ante massa, ornare accumsan ultricies et, posuere sit amet magna. Praesent dignissim, enim sed malesuada luctus, arcu sapien sodales sapien, ut placerat eros nunc vel est. Donec tristique mi turpis, et sodales nibh gravida eu. Etiam odio risus, porttitor non lacus id, rhoncus tempus tortor. Curabitur tincidunt molestie turpis, ut luctus nibh sollicitudin vel. Sed vel luctus nisi, at mattis metus. Aenean ultricies dolor est, a congue ante dapibus varius. Nulla at auctor nunc. Curabitur accumsan feugiat felis ut pretium. Praesent semper semper nisi, eu cursus augue.</p>
+        </div>
+        <div id="tab-3">
+            <p>Mauris facilisis elit ut sem eleifend accumsan molestie sit amet dolor. Pellentesque dapibus arcu eu lorem laoreet, vitae cursus metus mattis. Nullam eget porta enim, eu rutrum magna. Duis quis tincidunt sem, sit amet faucibus magna. Integer commodo, turpis consequat fermentum egestas, leo odio posuere dui, elementum placerat eros erat id augue. Nullam at eros eget urna vestibulum malesuada vitae eu mauris. Aliquam interdum rhoncus velit, quis scelerisque leo viverra non. Suspendisse id feugiat dui. Nulla in aliquet leo. Proin vel magna sed est gravida rhoncus. Mauris lobortis condimentum nibh, vitae bibendum tortor vehicula ac. Curabitur posuere arcu eros.</p>
+        </div>
+    </div> -->
+	
+	<div class="object-list">
+		<div class="vertical highlight_list">
+        {% for object in object_list %}
+            {% include 'idea/myidea_instance.html' %}
+        {% empty %}
+            {% if user.is_authenticated %}
+            <div class="alert alert-info">
+                <p>Opps {{ user.username }}, No idea created!!!</p>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <p>Opps sorry anonymous user, No idea created!!!</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+		<!-- Pagination section -->
+		{% include 'pagination/django-pure-pagination.html' %}
+		</div>
+    </div>
+	<script>
+        contentCollapse.init();
+		$(function() {
+		$(".search").keyup(function() 
+			{ 
+			var searchid = $(this).val();
+			var dataString = 'search='+ searchid;
+			if(searchid!='')
+			{
+				$.ajax({
+				type: "POST",
+				url: "get_myideas/",
+				data: dataString,
+				cache: false,
+				success: function(json_response)
+				{	
+				   $("#result").html("").show();
+					/*console.clear();
+					console.log(json_response);
+				   $("#result").html(json_response).show();*/
+				   for (var i in json_response) 
+				   {
+						var title = json_response[i].fields.titulo;
+						var id = json_response[i].pk;
+						var text = "<div class='show' align='left'><img src='/static/images/Blue-Black icons/bulb_idea_concept_electricity-128.png' style='width:30px; height:30px; float:left; margin-right:6px;' /><span class='name'><a href='IdeaView/"+id+"'>"+title+"</a></span></div>"
+						$("#result").append(text).show();
+				   }
+				}
+				});
+			}return false;    
+			});
+
+			jQuery("#result").live("click",function(e){ 
+				var $clicked = $(e.target);
+				var $name = $clicked.find('.name').html();
+				var decoded = $("<div/>").html($name).text();
+				$('#searchid').val(decoded);
+			});
+			jQuery(document).live("click", function(e) { 
+				var $clicked = $(e.target);
+				if (! $clicked.hasClass("search")){
+				jQuery("#result").fadeOut(); 
+				}
+			});
+			$('#searchid').click(function(){
+				jQuery("#result").fadeIn();
+			});
+		});
+    </script>
+    <!-- </div>
+    </div> -->
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "MasterPage.html" %}
+{% load staticfiles %}
+{% load inbox %}
+{% block content %}
+
+<style type="text/css">
+	#searchid
+	{
+		width:600px;
+		height:50px;
+		padding:10px;
+		font-size:14px;
+	}
+	#result
+	{
+		position:absolute;
+		width:600px;
+		padding:10px;
+		display:none;
+		margin-top:-1px;
+		border-top:0px;
+		overflow:hidden;
+		border:1px #CCC solid;
+		background-color: white;
+	}
+	.show
+	{
+		padding:10px; 
+		border-bottom:1px #999 dashed;
+		font-size:15px; 
+		height:50px;
+	}
+	.show:hover
+	{
+		background:#4c66a4;
+		color:#FFF;
+		cursor:pointer;
+	}
+</style>
+
+	<link rel="stylesheet" href="{% static 'jqueryui/css/jquery-ui.css' %}" />
+	<script src="{% static 'jqueryui/js/jquery-ui.min.js' %}"></script>
+
+    <h1>Listing ideas</h1>
+	
+	<!-- Left panel section -->
+    <div id="right" class="cd-panel from-right">
+        <header class="cd-panel-header">
+            <h1 id="title"></h1>
+            <a href="#1" class="cd-panel-close">Close</a>
+        </header>
+
+        <div class="cd-panel-container">
+            <div class="cd-panel-content">
+                <p style='text-align:justify' id="text">
+                </p>
+            </div>
+        </div>
+    </div>
+   <!-- Left panel end section -->
+   
+   <div class="content">
+	<input type="text" class="search form-control" id="searchid" placeholder="Start typing here any idea you are looking for" />
+	<div id="result">
+	</div>
+	</div>
+   
+<!-- 	<div class="ui-widget">
+		<label for="drugs">Drugs: </label>
+		<input id="drugs">
+	</div></br>
+
+    <label for="search">Search any idea you are looking for{{ object_list.count }}</label>
+    <input id="search" class="form-control" name="search" placeholder="Start typing here" type="text" data-list=".highlight_list" autocomplete="off" data-nodata="No results found"> -->
+
+    <div class="object-list">
+        {% for object in object_list %}
+            {% include 'idea/idea_instance.html' %}
+        {% empty %}
+            {% if user.is_authenticated %}
+            <div class="alert alert-info">
+                <p>Opps, {{ user.username }}, No ideas created!!!</p>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <p>Opps, sorry anonymous user, No ideas created!!!</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+		<!-- Pagination section -->
+		{% include 'pagination/django-pure-pagination.html' %}
+		
+	</div>
+	<script>
+        contentCollapse.init();
+		$(function() {
+		  /*$("#drugs").autocomplete({
+			source: "get_ideas/",
+			minLength: 2,
+		  });*/
+		  
+		  $(".search").keyup(function() 
+			{ 
+			var searchid = $(this).val();
+			var dataString = 'search='+ searchid;
+			if(searchid!='')
+			{
+				$.ajax({
+				type: "POST",
+				url: "get_ideas/",
+				data: dataString,
+				cache: false,
+				success: function(json_response)
+				{	
+				   $("#result").html("").show();
+					/*console.clear();
+					console.log(json_response);
+				   $("#result").html(json_response).show();*/
+				   for (var i in json_response) 
+				   {
+						var title = json_response[i].fields.titulo;
+						var id = json_response[i].pk;
+						var text = "<div class='show' align='left'><img src='/static/images/Blue-Black icons/bulb_idea_concept_electricity-128.png' style='width:30px; height:30px; float:left; margin-right:6px;' /><span class='name'><a href='IdeaView/"+id+"'>"+title+"</a></span></div>"
+						$("#result").append(text).show();
+				   }
+				}
+				});
+			}return false;    
+			});
+
+			jQuery("#result").live("click",function(e){ 
+				var $clicked = $(e.target);
+				var $name = $clicked.find('.name').html();
+				var decoded = $("<div/>").html($name).text();
+				$('#searchid').val(decoded);
+			});
+			jQuery(document).live("click", function(e) { 
+				var $clicked = $(e.target);
+				if (! $clicked.hasClass("search")){
+				jQuery("#result").fadeOut(); 
+				}
+			});
+			$('#searchid').click(function(){
+				jQuery("#result").fadeIn();
+			});
+		});
+    </script>
+{% endblock %}

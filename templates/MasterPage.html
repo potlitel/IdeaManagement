@@ -1,0 +1,225 @@
+{% load staticfiles %}
+{% load avatar_tags %}
+<!DOCTYPE HTML>
+<!--
+	Strata by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Idea Publisher</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<!-- <link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.css" %}" />
+		<link rel="stylesheet" href="{% static "bootstrap/css/bootstrap.min.css" %}" /> -->
+		
+		<!--
+			Adicionado noviembre 27 de 2015
+		-->	
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.4-dist/css/bootstrap.css' %}" />
+	    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.4-dist/css/bootstrap.min.css' %}" />
+	    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.4-dist/css/bootstrap-theme.css' %}" />
+		<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-3.3.4-dist/css/bootstrap-theme.min.css' %}" /> 
+		<!--
+			Adicionado noviembre 27 de 2015
+		-->	
+
+		<!-- <link rel="stylesheet" href="{% static 'css/base.csss' %}" /> -->
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+		<!-- <link rel="stylesheet" href="{% static 'css/styles2.csss' %}" /> -->
+		<!--<link rel="stylesheet" href="{% static "js/node_modules/normalize.css/normalize.css" %}" />-->
+		<link rel="stylesheet" href="{% static 'css/styleLogin.css' %}" />
+		<link rel="stylesheet" href="{% static 'css/alain.css' %}" />
+		<!--<link rel="stylesheet" href="{% static "bootstrap-theme.min.css" %}" />-->
+
+		<!-- <link rel="stylesheet" href="{% static 'slide-in-panel/css/reset.csss' %}" /> -->
+		<link rel="stylesheet" href="{% static 'slide-in-panel/css/style.css' %}" />
+		
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+
+		<!-- Scripts -->
+		<script src="{% static 'js/jquery/jquery-2.0.3.min.js' %}"></script>
+		<script src="{% static 'bootstrap-3.3.4-dist/js/bootstrap.js' %}"></script>
+		<!--<script src="{% static "js/app.js" %}"></script>-->
+		<script src="{% static 'js/script.js' %}"></script>
+		
+		<!-- Scripts django_password_strength -->
+		<script src="{% static 'django_password_strength/js/zxcvbn.js' %}"></script>
+		<!-- <script src="{% static 'django_password_strength/js/zxcvbn-async.js' %}"></script> -->
+		<script src="{% static 'django_password_strength/js/password_strength.js' %}"></script>
+		<!-- Scripts django_password_strength -->
+		
+		<!-- Scripts slide-in-panel -->
+		<script src="{% static 'slide-in-panel/js/modernizr.js' %}"></script>
+		<script src="{% static 'slide-in-panel/js/main.js' %}"></script>
+
+		<!-- Scripts countable chars -->
+		<script src="{% static 'js/jquery-simply-countable-master/jquery-migrate-1.2.1.min.js' %}"></script>
+		<script src="{% static 'js/jquery-simply-countable-master/jquery.simplyCountable.js' %}"></script>
+
+		<!-- Minimal-jQuery-Smooth-Collapsible-Panel-Plugin-Content-Collapse -->
+		<link rel="stylesheet" href="{% static 'js/Minimal-jQuery-Smooth-Collapsible-Panel-Plugin-Content-Collapse/demo/jquerysctipttop.css' %}" />
+		<link rel="stylesheet" href="{% static 'js/Minimal-jQuery-Smooth-Collapsible-Panel-Plugin-Content-Collapse/css/contentCollapse.css' %}" />
+		<script src="{% static 'js/Minimal-jQuery-Smooth-Collapsible-Panel-Plugin-Content-Collapse/demo/jquery.easing.min.js' %}"></script>
+		<script src="{% static 'js/Minimal-jQuery-Smooth-Collapsible-Panel-Plugin-Content-Collapse/contentCollapse.js' %}"></script>
+		<!-- ModernBlockQuoteStyles 
+		<link rel="stylesheet" href="{% static "ModernBlockQuoteStyles/css/demo.css" %}" />
+		<link rel="stylesheet" href="{% static "ModernBlockQuoteStyles/css/style_common.css" %}" />
+		<link rel="stylesheet" href="{% static "ModernBlockQuoteStyles/css/style6.css" %}" />-->
+		<!-- jpList -->
+		<!-- <link rel="stylesheet" href="{% static 'jpList/jplist.demo-pages.min.csss' %}" />
+		<link rel="stylesheet" href="{% static 'jpList/jplist.core.min.css' %}" />
+		<link rel="stylesheet" href="{% static 'jpList/jplist.pagination-bundle.min.css' %}" />
+		<script src="{% static 'jpList/jplist.core.min.js' %}"></script>
+		<script src="{% static 'jpList/jplist.pagination-bundle.min.js' %}"></script> -->
+		<!--  -->
+		<script src="{% static 'richcomments/includes/jquery.form.js' %}"></script>
+
+
+		<script type="text/javascript" src="{% static 'js/HideSeek-master/demo/javascripts/vendor/jquery.hideseek.min.js' %}"></script>
+  		<script type="text/javascript" src="{% static 'js/HideSeek-master/demo/javascripts/vendor/rainbow-custom.min.js' %}"></script>
+  		<script type="text/javascript" src="{% static 'js/HideSeek-master/demo/javascripts/vendor/jquery.anchor.js' %}"></script>
+  		<script src="{% static 'js/HideSeek-master/demo/javascripts/initializers.js' %}"></script>
+
+  		<script src="{% static 'js/likes/includes/likes.js' %}"></script>
+
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'jPages/css/jPages.css' %}" />
+		<script src="{% static 'jPages/js/jPages.js' %}"></script> -->
+		
+		<link rel="stylesheet" type="text/css" href="{% static 'Responsive-Tabs/css/responsive-tabs.css' %}" />
+		<!-- <link rel="stylesheet" type="text/css" href="{% static 'Responsive-Tabs/css/style.css' %}" /> -->
+		<script src="{% static 'Responsive-Tabs/js/jquery.responsiveTabs.js' %}"></script>
+		<script type="text/javascript">
+            $(function() {
+                $.fm({debug: true});
+            });
+        </script>
+        <style>
+            #content {
+                margin: 0 auto; max-width: 800px; padding: 0 20px;
+            }
+            .object-list {
+                margin-top: 30px;
+            }
+            .object {
+                margin-bottom: 30px;
+            }
+            .object-controls {
+                margin-top: 10px;
+            }
+
+            #likes {
+			    width:100px;
+			    float:left;
+			    padding-left:5px; 
+			    margin-top: 30px;
+			}
+			#comments {
+			    width:150px;
+			    float:left;
+				padding-left:10px; 
+				margin-top: 30px;
+			}
+			#acunna {
+			    width:100px;
+			    float:left;
+				padding-left:15px; 
+			}
+			
+			a:link {
+				text-decoration: none;
+			}
+			a:visited {
+				text-decoration: none;
+			}
+			a:hover {
+				text-decoration: none;
+			}
+			a:active {
+				text-decoration: none;
+			}
+        </style>
+		<link rel="shortcut icon" href="{% static "images/ideas.jpg" %}" type="image/x-icon" />
+	</head>
+	<body id="top">
+
+		<!-- Header -->
+			<header id="header">
+				{% if user.is_authenticated %}
+				    {% if not request.user|has_avatar %}
+				    <a href="{% url 'avatar_change' %}" class="image avatar"><img src="{% static "images/user.png" %}"alt="" /></a>
+				    {% else %}
+				    <a href="{% url 'avatar_change' %}" class="image avatar">{% avatar user %}</a>
+				    {% endif %}
+				    <p><strong>Welcome, {{ user.username }}.</strong></br> Thanks for logging in.</p>
+				{% else %}
+					<a href="#" class="image avatar"><img src="{% static "images/user.png" %}"alt="" /></a>
+				    <p>Welcome, anonymous user. Please log in to create any idea!!!.</p>
+				{% endif %}
+			</header>
+
+			<div >
+			</div>
+
+			<div id="main">
+				<div id='cssmenu'>
+						<ul>
+						   <li>
+						   		<a href="{% url 'file_index' %}" class="Home"> Home</a>
+						   </li>
+						   <li class='active'><a href="{% url 'ideas_list' %}" class="Idea"> Ideas</a>
+						      <!-- <ul>
+						         <li class='has-sub'><a href="{% url 'ideas_list' %}"><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Availables ideas</a>
+						            <ul>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Crz Idea</a></li>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Serious Idea</a></li>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Important Idea</a></li>
+						            </ul>
+						         </li>
+						         <li class='has-sub'><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Not availables ideas</a>
+						            <ul>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Crz Idea</a></li>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Serious Idea</a></li>
+						               <li><a href='#'><img src="{% static "images/iconza/flash_32x32.png" %}" width="20px" height="20px" alt="" />Important Idea</a></li>
+						            </ul>
+						         </li>
+						      </ul> -->
+						   </li>
+						   <li><a href="{% url 'aboutUs' %}" class="About"> About</a></li>
+						   {% if user.is_authenticated %}
+								<li class='active has-sub'><a href='#' class="UserMenu"> Myself</a>
+						      	 <ul>
+									<li><a href="{% url 'myideas_list' %}" title="" class="Idea"> My Ideas</a></li>
+						         	<li><a href="{% url 'settings' %}" title="" class="img"> Change my profile</a></li>
+									<li><a href="{% url 'password_change' %}" title="" class="img"> Change password</a></li>
+									<li><a href="{% url 'logout' %}" title="" class="img"> Let me out</a></li>
+						         </ul>
+						         </li>
+							{% else %}
+								<li><a href="{% url 'login' %}" title="" class="In"> Let me in</a></li>
+							{% endif %}
+						</ul>
+				</div>
+				
+				{% block content %}
+		        {% endblock %}
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer">
+				<ul class="icons">
+					<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+					<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+					<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+					<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+				</ul>
+				<ul class="copyright">
+					<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</footer>
+			{% block extra_body %}{% endblock %}
+			{% include "fm/modal.html" %}
+	</body>
+</html>

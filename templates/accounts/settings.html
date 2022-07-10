@@ -1,0 +1,14 @@
+{% extends "MasterPage.html" %}
+{% block content %}
+
+<section id="one">
+<h1 align="center">Change my profile</h1>
+	<div style="margin-left:20%;margin-right:20%">
+    <form action="." method="post" accept-charset="utf-8" class="form-horizontal">
+        {% csrf_token %}
+        {% load crispy_forms_tags %}	
+	    {% crispy form %}
+    </form>
+	</div>
+</section>
+{% endblock %}

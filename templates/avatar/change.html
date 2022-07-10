@@ -1,0 +1,116 @@
+{% extends "avatar/base.html" %}
+{% load i18n avatar_tags %}
+{% load staticfiles %}
+{% block content %}
+	<style>
+	{
+	  margin: 0;
+	  padding: 0;
+	}
+
+	.div {
+	  width: 400px;
+	  margin: 0 auto;
+	  overflow: auto;
+	}
+
+	ul {
+	  list-style-type: none;
+	}
+
+	li img {
+	  float: left;
+	  margin: 10px;
+	  border-radius: 10%;
+	  width: 100px;
+	  height: 100px;
+
+	  -webkit-transition: box-shadow 0.5s ease;
+	  -moz-transition: box-shadow 0.5s ease;
+	  -o-transition: box-shadow 0.5s ease;
+	  -ms-transition: box-shadow 0.5s ease;
+	  transition: box-shadow 0.5s ease;
+	}
+
+	li img:hover {
+	  -webkit-box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+	  box-shadow: 0px 0px 7px rgba(255,255,255,0.9);
+	}
+	
+	#current {
+			    width:140px;
+			    float:left;
+			    padding-left:5px; 
+			}
+	#other {
+			    width:600px;
+				padding-left:140px; 
+			}
+			
+	fieldset { border: none; }
+
+	.fieldset {
+	  width: 30em;
+	  position: relative;
+	  padding: 2.5em 1em 0.5em 1em;
+	  border: 1px solid #000;
+	  background: #F8F8F8;
+	  font-size: 90%;
+	}
+
+	legend span {
+	  position: absolute;
+	  width: 29em;
+	  top: 0.5em; left: 1em;
+	  color: #000;
+	  font-weight: bold;
+	}		
+	
+	#id_avatar{
+				margin-left: 10px;
+				display: inline-block;
+			 }
+	</style>
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap-fileinput-master/css/fileinput.css' %}" />
+	<script src="{% static 'bootstrap-fileinput-master/js/fileinput.js' %}"></script>
+	<section id="one">
+		<div class="row">
+		<div id="currentt" class="3u 10u$(xsmall)">
+			<p>{% trans "Your current avatar: " %}</p> <div class="image avatar">{% avatar user %}</div>
+		</div>
+		<div id="otherr" class="9u 10u$(xsmall)">
+			{% if not avatars %}
+				<p>{% trans "You haven't uploaded an avatar yet. Please upload one now." %}</p>
+			{% else %}
+			<form method="POST" action="{% url 'avatar_change' %}">
+				<ul>
+					{{ primary_avatar_form.as_ul }}
+				</ul></br>
+				{% csrf_token %}
+				<div style="margin-top:15px"><input type="submit" class="btn btn-default" value="{% trans 'Change default avatar' %}" /></div>
+			</form>
+			{% endif %}
+		</div>
+		</div>
+		
+		</br>
+		<div style="float:justify" class="well">
+			<fieldset>
+			<legend align= "left">Select a new avatar image</legend>
+			<form class="form-horizontal" enctype="multipart/form-data" method="POST" action="{% url 'avatar_add' %}">
+				{{ upload_avatar_form.as_p }}
+				{% csrf_token %}
+				<input type="submit" class="btn btn-default" value="{% trans 'Upload new avatar' %}" />
+			</form>
+			</fieldset>
+		</div>
+	</section>	
+	<script type="text/javascript">
+    	// with plugin options
+    	$("#id_avatar").fileinput({
+    		'showUpload':false,
+    		'previewFileType':'any',
+      	    'allowedFileExtensions' : ['jpg', 'png','gif'],
+    	});        
+    </script>
+{% endblock %}

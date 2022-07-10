@@ -1,0 +1,86 @@
+{% extends "MasterPage.html" %}
+{% load inbox %}
+{% block content %}
+    <h1>Provide feedback on something in internet</h1>
+    <blockquote>
+        This is a demonstration of <a href="https://github.com/FZambia/django-fm" target="_blank">django-fm</a> app. Django-fm allows to create AJAX forms for creating, editing, deleting objects in Django. This is a very personalized approach to quickly build admin-like interfaces.
+    </blockquote>
+    {% if user.is_authenticated %}
+        <div>
+            <a href="{% url 'feedback_create' %}" class="fm-create btn btn-primary" data-fm-head="Creating feedback" data-fm-callback="reload">Create new</a>
+        </div>
+    {% endif %}
+
+    <div id="right" class="cd-panel from-right">
+        <header class="cd-panel-header">
+            <h1 id="title"></h1>
+            <a href="#1" class="cd-panel-close">Close</a>
+        </header>
+
+        <div class="cd-panel-container">
+            <div class="cd-panel-content">
+                <p style='text-align:justify' id="text">
+                </p>
+            </div> <!-- cd-panel-content -->
+        </div> <!-- cd-panel-container -->
+    </div> <!-- cd-panel -->
+   
+
+    <label for="search">Programming Language Popularity</label>
+    <input id="search" class="form-control" name="search" placeholder="Start typing here" type="text" data-list=".highlight_list" autocomplete="off" data-nodata="No results found">
+
+    <!-- <div id="demo">
+    
+                    <div class="jplist-panel box panel-top">                        
+                            
+                        <div 
+                           class="jplist-label" 
+                           data-type="Page {current} of {pages}" 
+                           data-control-type="pagination-info" 
+                           data-control-name="paging" 
+                           data-control-action="paging">
+                        </div>  
+
+                        <div 
+                           class="jplist-pagination" 
+                           data-control-type="pagination" 
+                           data-control-name="paging" 
+                           data-control-action="paging"
+                           data-items-per-page="5">
+                        </div>          
+                        
+                    </div>
+                    
+                    <div class="list box text-shadow"> -->
+    <div class="object-list">
+        <div class="vertical highlight_list">
+        {% for object in object_list %}
+            {% include 'feedback/feedback_instance.html' %}
+        {% empty %}
+            {% if user.is_authenticated %}
+            <div class="alert alert-info">
+                <p>Opps {{ user.username }}, No jobs created!!!</p>
+            </div>
+            {% else %}
+            <div class="alert alert-info">
+                <p>Opps sorry anonymous user, No jobs created!!!</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+        <script>
+        contentCollapse.init();
+        /*$('document').ready(function(){ 
+                
+            $('#demo').jplist({             
+                itemsBox: '.list' 
+                ,itemPath: '.list-item' 
+                ,panelPath: '.jplist-panel' 
+            });
+        });*/
+        </script>
+    </div>
+    <!-- </div>
+    </div> -->
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% load comments i18n %}
+{% load crispy_forms_tags %}
+<!-- <form action="{% comment_form_target %}" class="form-horizontal" method="post">{% csrf_token %}
+  {% if next %}
+    <div><input type="hidden" name="next" value="{{ next }}"/></div>{% endif %}
+  
+	{{ form|crispy }}
+  
+  <p class="submit">
+    <input type="submit" name="post" class="btn btn-default" value="{% trans "Post this comment" %}"/>
+    <!--<input type="submit" name="preview" class="btn btn-default" value="{% trans "Preview" %}"/>-->
+ <!-- </p>
+</form> -->
+
+<form action="{% comment_form_target %}" method="post">
+        {% csrf_token %}
+        {% if next %}<input name="next" type="hidden" value="{{ next }}" />{% endif %}
+        {% for field in form %}
+            {% if field.is_hidden %}
+                {{ field }}
+            {% else %}
+                {% if field.name != "name" and field.name != "email" and field.name != "url" and field.name != "honeypot" %}
+                    {% if field.errors %}{{ field.errors }}{% endif %}
+                    {{ field }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+		</br>
+        <p class="submit">
+			<input type="submit" name="post" class="btn btn-default" value="{% trans 'Post this comment' %}"/>
+		</p>
+</form>

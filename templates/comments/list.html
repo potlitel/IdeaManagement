@@ -1,0 +1,18 @@
+{% load avatar_tags %}
+<dl id="comments" style="width:100%">
+  {% for comment in comment_list %}
+	<div class="row alert alert-{{comment.name}} alert-dissmissable">
+		<div class="3u 10u$(xsmall)">
+			<a href="" class="image avatar">{% avatar comment.user %} </a>
+		</div>    
+		<div class="9u 10u$(xsmall)">
+			<dt id="c{{ comment.id }}">
+			  {{ comment.submit_date }} - {{ comment.name }}
+			</dt>
+			<dd>
+			  <p style='text-align:justify'>{{ comment.comment }}</p>
+			</dd>
+		</div>
+    </div>
+  {% endfor %}
+</dl>

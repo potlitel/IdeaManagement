@@ -1,0 +1,49 @@
+{% load comments richcomments %}
+
+{% load likes_inclusion_tags %}
+{% load staticfiles %}
+{% load avatar_tags %}
+<!-- <div class="list-item box"> -->
+<div class="object" id="object-{{ object.pk }}">
+
+    <blockquote style="border-left: 5px solid #47ad09;">
+    
+    <div style='text-align:justify'>
+            <a href="#" id="{{ object.id }}" class="cd-btn-right">
+            {{ object.url|truncatechars:50 }}
+            </a>
+    </div>
+
+    <div>    
+        <div style="float:left;padding-right:15px">
+            <a href="" class="image avatar">{% avatar "potlitel" %}</a>
+        </div>
+        <div style='text-align:justify'>
+            {{ object.created_at|truncatechars:255 }}</br>
+            {{ object.text|truncatechars:255 }}
+            <div id="alain">
+                {% likes object %}
+            </div>
+            <div id="jorge">
+                {% get_comment_count for object as comment_count %}
+                {{ comment_count }} comments.
+            </div>
+            <div class="object-controls">
+                <a href="{% url 'feedback_update' feedback_pk=object.pk %}" class="fm-update" data-fm-head="Updating feedback" data-fm-callback="replace" data-fm-target="#object-{{ object.pk }}"><img src="{% static "images/Blue-Black icons/Pencil-128.png" %}" width="50px" height="50px" alt="" /></a>
+                <a href="{% url 'feedback_delete' feedback_pk=object.pk %}" class="fm-delete " data-fm-head="Delete the feedback {{ object.url}} ?" data-fm-callback="remove" data-fm-target="#object-{{ object.pk }}"><img src="{% static "images/Blue-Black icons/Recycle_bin-128.png" %}" width="50px" height="50px" alt="Lokol" /></a>
+                <a href="messages/inbox/" class=""><img src="{% static "images/Blue-Black icons/Referrals-128.png" %}" width="50px" height="50px" alt="" /></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-collapse">
+        <a data-toggle class="Comment" style="padding-left:45px">Commenting on this idea</a>
+            <div class="content">
+                {% render_comment_list for object %}
+                {% render_comment_form for object %}  
+            </div>
+    </div>
+
+    </blockquote>
+</div>
+<!-- </div> -->
